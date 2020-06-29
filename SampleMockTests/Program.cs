@@ -11,7 +11,7 @@ namespace SampleMockTests
             mockobj obj = new mockobj()
             {
                 httpRequest = new httpRequest() { body = "",method = "GET", path = "/aipii/abc/xyz"},
-                httpResponse = new httpResponse() {statusCode =200,headers ="{\"name\":\"Content-Type\",  \"values\":[ \"application/json\" ]}" }
+                httpResponse = new httpResponse() {statusCode =200,headers ="{\"Content-Type\": [ \"application/json\" ]}" }
 
                 
                //httpResponse= {"headers":"[{"name": "Content-Type",  "values": [ "application/json" ]}]","body":"{"Id":"5a02000a-ee8b-47a8-8e01-04ed7afe6263","Name":"firstTenanttwo", "Exists":"true"}","statusCode":200}
