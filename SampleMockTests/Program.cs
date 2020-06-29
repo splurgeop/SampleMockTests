@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using System;
+using System.Collections.Generic;
 
 namespace SampleMockTests
 {
@@ -9,8 +10,9 @@ namespace SampleMockTests
         {
             mockobj obj = new mockobj()
             {
-                httpRequest = new httpRequest() { body = "",method = "GET", path = "/api/abc/xyz"},
-                httpResponse = new httpResponse() {statusCode =200}
+                httpRequest = new httpRequest() { body = "",method = "GET", path = "/aipii/abc/xyz"},
+                httpResponse = new httpResponse() {statusCode =200,headers ="{\"name\":\"Content-Type\",  \"values\":[ \"application/json\" ]}" }
+
                 
                //httpResponse= {"headers":"[{"name": "Content-Type",  "values": [ "application/json" ]}]","body":"{"Id":"5a02000a-ee8b-47a8-8e01-04ed7afe6263","Name":"firstTenanttwo", "Exists":"true"}","statusCode":200}
 
@@ -22,6 +24,7 @@ namespace SampleMockTests
             request.RequestFormat = DataFormat.Json;
             request.AddJsonBody(obj);
             IRestResponse restResponse = rest.Execute(request);
+            
             Console.WriteLine(restResponse.StatusCode);
 
         }
@@ -30,6 +33,12 @@ namespace SampleMockTests
     {
        public httpRequest httpRequest { get; set; }
         public httpResponse httpResponse { get; set; }
+
+        public override string ToString()
+        {
+
+            return string.Concat(httpRequest.ToString(), httpResponse.ToString());
+        }
     }
 
     public class httpRequest
@@ -41,7 +50,7 @@ namespace SampleMockTests
     }
     public class httpResponse
     {
-        public object headers { get; set; } = "[{\"name\":\"Content-Type\",\"values\":[ \"application/json\" ]}]";//new Dictionary<string, string>() { { "content-type", "[application/json]" } };
+        public object headers { get; set; }//new Dictionary<string, string>() { { "content-type", "[application/json]" } };
 
         public string body { get; set; } = string.Empty;
         public int statusCode { get; set; } = 200;
